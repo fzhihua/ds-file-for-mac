@@ -30,3 +30,10 @@ body.popup { width:360px; min-height:auto; padding:0; display:block; }
 
 .check { display:flex; align-items:center; gap:9px; font-weight:500; }
 .check input { flex:none; }
+
+.popup .auth-state {border:1px solid #cbd5e1;border-radius:9px;padding:12px 13px;margin:12px 0;font-size:14px;font-weight:700;line-height:1.5;overflow-wrap:anywhere}
+.popup .auth-state[data-state="authorized"] {color:#205d38;background:#ebf7ef;border-color:#80c49a}
+.popup .auth-state[data-state="unauthorized"] {color:#854d0e;background:#fff7e6;border-color:#e8b96d}
+.popup .auth-state[data-state="permission-lost"] {color:#9b2c2c;background:#fff0ee;border-color:#e3a6a6}
+.popup .auth-state[data-state="unknown"] {color:#475569;background:#f1f5f9}
+.popup .site-list {white-space:pre-line;line-height:1.8;overflow-wrap:anywhere}

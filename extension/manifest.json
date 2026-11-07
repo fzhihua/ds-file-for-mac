@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "DS File for Mac — IINA（非官方）",
   "short_name": "DS File for Mac",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "非官方：在群晖 File Station 点击播放，自动交给 Mac 本地 IINA。首次使用须授权当前 NAS 站点。",
   "minimum_chrome_version": "116",
   "permissions": ["activeTab", "storage", "cookies", "declarativeNetRequestWithHostAccess"],

@@ -14,7 +14,7 @@ const dir=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../extensio
 const manifest=JSON.parse(fs.readFileSync(path.join(dir,'manifest.json'),'utf8'));
 
 test('manifest uses MV3, optional host access and no private NAS data',()=>{
- assert.equal(manifest.version,'0.3.1');
+ assert.equal(manifest.version,'0.3.2');
  assert.equal(manifest.manifest_version,3);
  assert.deepEqual(manifest.host_permissions,undefined);
  assert.deepEqual(manifest.optional_host_permissions,['http://*/*','https://*/*']);

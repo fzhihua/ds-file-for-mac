@@ -2,12 +2,47 @@ import {MAX_SITES, DEFAULT_SETTINGS, originFromTabUrl, normalizeOrigin,
         normalizeTrustedOrigins, permissionPattern, getSettings, sidStorageKey} from "./common.js";
 const $ = id => document.getElementById(id);
 let detected = null;
+let statusRevision = 0;
 function message(text) {$("status").textContent = text;}
+function currentOrigin() {return normalizeOrigin($("nasOrigin").value.trim() || detected || "");}
+async function renderSiteStatus() {
+  const rev = ++statusRevision;
+  let site;
+  try {site = currentOrigin();} catch (_) {
+    $("authStatus").dataset.state = "unknown";
+    $("authStatus").textContent = "未识别 NAS · 请先打开 File Station，或填写 NAS 入口";
+    $("grant").disabled = true;
+    $("removeSite").disabled = true;
+    return;
+  }
+  const [saved, permission] = await Promise.all([
+    chrome.storage.local.get("trustedOrigins"),
+    chrome.permissions.contains({origins:[permissionPattern(site)]})
+  ]);
+  if (rev !== statusRevision) return;
+  const registered = normalizeTrustedOrigins(saved.trustedOrigins).includes(site);
+  const state = registered && permission ? "authorized" : registered ? "permission-lost" : "unauthorized";
+  $("authStatus").dataset.state = state;
+  $("authStatus").textContent = state === "authorized"
+    ? "已授权 · 当前 NAS 可以自动截获播放"
+    : state === "permission-lost"
+    ? "授权失效 · Chrome 站点权限已撤销，请重新授权"
+    : "未授权 · 首次使用请点击“授权当前 NAS”";
+  $("grant").disabled = state === "authorized";
+  $("grant").textContent = state === "authorized" ? "当前 NAS 已授权" : "授权当前 NAS";
+  $("removeSite").disabled = !registered;
+}
 async function renderSites() {
   const sites = normalizeTrustedOrigins((await chrome.storage.local.get("trustedOrigins")).trustedOrigins);
-  $("sites").textContent = sites.length ? "已授权的站点：" + sites.join("，") : "尚未授权 NAS 站点";
+  const values = await Promise.all(sites.map(async site => {
+    const valid = await chrome.permissions.contains({origins:[permissionPattern(site)]});
+    return (valid ? "已授权：" : "权限失效：") + site;
+  }));
+  $("sites").textContent = sites.length
+    ? "已登记 " + sites.length + " 个 NAS 入口（分别授权、分别缓存 SID）\n" + values.join("\n")
+    : "尚未登记任何 NAS 站点";
+  await renderSiteStatus();
 }
-function currentOrigin() {return normalizeOrigin($("nasOrigin").value.trim() || detected || "");}
 async function addSite() {
   const site = currentOrigin();
   // Request immediately from the click gesture. Previously awaiting contains()
@@ -52,6 +87,7 @@ async function main() {
   } catch (_) {
     $("detected").textContent = "当前标签页不是普通 HTTP(S) 页面；可手动填写 NAS 入口。";
   }
+  $("nasOrigin").addEventListener("input", () => { void renderSiteStatus(); });
   $("grant").addEventListener("click", () => addSite().catch(e=>message("授权失败："+e.message)));
   $("removeSite").addEventListener("click", () => removeSite().catch(e=>message("移除失败："+e.message)));
   $("clear").addEventListener("click", async ()=>{
@@ -59,6 +95,6 @@ async function main() {
     message("临时 SID 已清除；NAS 浏览器登录未受影响。");
   });
   await renderSites();
-  message("已加载设置。首次使用请授权当前 NAS。" );
+  message("设置已加载。上方显示当前 NAS 实际授权状态。" );
 }
 main().catch(e=>message("初始化失败："+e.message));

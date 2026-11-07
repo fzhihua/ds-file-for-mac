@@ -46,7 +46,7 @@ test('return of focus before timeout prevents automatic close',async()=>{
 test('expired handoff window does not auto-close',()=>{
  const s=scenario();s.arm();s.shiftTime(21000);s.focus(false);s.check();assert.equal(s.pending.size,0);
 });
-test('manifest version is 0.3.1',()=>{
+test('manifest version is 0.3.2',()=>{
  const manifest=JSON.parse(fs.readFileSync(path.join(dir,'manifest.json'),'utf8'));
- assert.equal(manifest.manifest_version,3);assert.equal(manifest.version,'0.3.1');
+ assert.equal(manifest.manifest_version,3);assert.equal(manifest.version,'0.3.2');
 });

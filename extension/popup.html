@@ -3,11 +3,12 @@
 <body class="popup"><main class="panel">
   <div class="eyebrow">DS File for Mac · 非官方</div>
   <h1>播放设置</h1>
-  <p class="small">先在 Chrome 打开自己的群晖 File Station，点击扩展图标，再点“授权当前 NAS”。插件将从网址自动识别 NAS 域名、协议和端口。</p>
+  <p class="small">打开群晖 File Station 后点击扩展图标，即可自动识别 NAS 地址。首次使用每台 NAS 需授权一次，此后会自动截获播放。</p>
   <p class="small" id="detected">检测当前标签页……</p>
+  <div id="authStatus" class="auth-state" data-state="unknown" role="status" aria-live="polite">正在检查当前 NAS 授权……</div>
   <div class="controls"><button id="grant" class="primary" type="button">授权当前 NAS</button></div>
   <label>或者手动填写 NAS 入口（仅当前站点）<input id="nasOrigin" placeholder="https://nas.example.com:5001" autocomplete="off" spellcheck="false"></label>
-  <p id="sites" class="small">尚未授权 NAS 站点</p>
+  <p id="sites" class="small site-list">尚未授权 NAS 站点</p>
   <label class="check"><input type="checkbox" id="enabled"> 自动截获已授权 NAS 的播放器跳转</label>
   <label class="check"><input type="checkbox" id="autoOpen"> 自动启动 IINA</label>
   <label class="check"><input type="checkbox" id="autoClose"> IINA 接管后关闭临时交接标签</label>
