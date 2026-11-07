@@ -6,6 +6,24 @@
 
 > This is **not** a port of Synology's official DS file app, and is **not affiliated with or endorsed by Synology or IINA**. It only implements video playback handoff.
 
+## 立即试用 V0.3.0 RC1（Mac + Chrome）
+
+**[下载 V0.3.0 RC1 安装 ZIP](https://github.com/fzhihua/ds-file-for-mac/releases/download/v0.3.0-rc.1/ds-file-for-mac-v0.3.0.zip)** · [查看 Release](https://github.com/fzhihua/ds-file-for-mac/releases/tag/v0.3.0-rc.1)
+
+> **这是 GitHub 预览版，不是 Chrome Web Store 已上架扩展。** 需要通过 Chrome「加载已解压的扩展程序」安装，**不能直接把 ZIP 拖进 Chrome**。ZIP 根目录含有 `manifest.json`，无须构建。
+
+1. 确认 Mac 已安装 **IINA 1.4.4 或更新版本**。
+2. 下载上面的 ZIP，解压到一个不会随意删除或移动的文件夹。
+3. Chrome 打开 `chrome://extensions` → 开启「开发者模式」→「加载已解压的扩展程序」→ **选择解压后包含 `manifest.json` 的文件夹**。
+4. **不要在同一个 Chrome 配置文件内同时启用 V0.2 和 V0.3 的自动拦截。** 推荐用新 Chrome 配置文件试用 V0.3；或者先把旧 V0.2 扩展禁用（不必卸载）。
+5. 在该 Chrome 中打开你的 NAS **File Station** 并登录；点击工具栏中的 **DS File for Mac** 扩展图标，检查识别出的 NAS 地址并点击「授权当前 NAS」。
+6. 返回 File Station，选视频点「播放」。Chrome 可能首次要求允许打开 IINA；选择允许。插件将调用 IINA，并尝试在切换焦点后约 1.8 秒关闭临时交接页。
+7. 若没有拦截，先刷新 File Station 并检查扩展弹窗的站点授权和自动拦截开关；若交接页显示但没有自动播放，可点「用 IINA 播放」。
+
+**路径确认：** 也可以直接下载本仓库源码，在 `chrome://extensions` 中选择 `extension/` 文件夹（`manifest.json` 位于其中）。
+
+**安全提醒：** 当前播放 URL 仍包含 NAS 会话 SID。只在自己的设备使用，不要分享播放链接、浏览器日志或含令牌截图；推荐使用验证证书的 HTTPS 和视频目录只读账户。HTTP 可能泄露登录和会话信息。详细见 [SECURITY.md](SECURITY.md)。
+
 ## 当前状态 / Status
 
 - **V0.2（个人使用版）**：DS218 / DSM 6.2.4 + Mac Chrome + IINA 实际播放及自动关闭临时标签，用户已验证。
