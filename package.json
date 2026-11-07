@@ -1,0 +1,10 @@
+{
+  "name": "ds-file-for-mac",
+  "private": true,
+  "version": "0.3.0",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "check": "node --check extension/background.js && node --check extension/common.js && node --check extension/handoff.js && node --check extension/popup.js"
+  }
+}

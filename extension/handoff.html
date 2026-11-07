@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>交给 IINA 播放 · 群晖</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="handoff.js"></script>
+</head>
+<body>
+<main class="panel">
+  <div class="eyebrow">DS File for Mac · 非官方</div>
+  <h1>正在准备本地播放</h1>
+  <p id="site" class="small"></p>
+  <p id="file" class="filename">正在解析视频……</p>
+  <div id="status" role="status" class="notice">读取 Chrome 当前 NAS 会话中……</div>
+  <div id="controls" class="controls" hidden>
+    <button id="play" class="primary" type="button">用 IINA 播放</button>
+    <button id="copy" type="button">复制播放链接</button>
+  </div>
+  <section id="loginBox" hidden>
+    <h2>需要新的 File Station 会话</h2>
+    <p>优先使用 Chrome 已登录的 NAS Cookie。若无法复用，请在这里直接向你自己的 NAS 登录。密码不会被插件保存。</p>
+    <form id="loginForm">
+      <label>NAS 用户名<input id="account" type="text" autocomplete="username" required></label>
+      <label>NAS 密码<input id="password" type="password" autocomplete="current-password" required></label>
+      <button type="submit" class="primary" id="login">登录并播放</button>
+    </form>
+    <label class="check" id="httpConsentRow" hidden><input type="checkbox" id="httpConsent"> 我知晓 HTTP 会明文传输密码及会话信息，仍要通过 HTTP 登录</label>
+    <p class="warning">连接方式直接取自 File Station 网页地址。HTTP 不加密登录密码及视频会话；建议使用可信 HTTPS。不要把密码或 SID 发到聊天中。</p>
+  </section>
+  <div class="foot">
+    <span>IINA 需要更新到 1.4.4 或更高版本。Chrome 可能提示是否允许打开外部应用；自动关闭仅根据页面失焦判断，不能保证播放器已实际启动。</span>
+    <button type="button" id="settings" class="linklike">扩展设置</button>
+  </div>
+</main>
+</body>
+</html>

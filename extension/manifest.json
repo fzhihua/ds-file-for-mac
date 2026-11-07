@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "DS File for Mac — IINA（非官方）",
+  "short_name": "DS File for Mac",
+  "version": "0.3.0",
+  "description": "非官方：在群晖 File Station 点击播放，自动交给 Mac 本地 IINA。首次使用须授权当前 NAS 站点。",
+  "minimum_chrome_version": "116",
+  "permissions": ["activeTab", "storage", "cookies", "declarativeNetRequestWithHostAccess"],
+  "optional_host_permissions": ["http://*/*", "https://*/*"],
+  "background": {"service_worker": "background.js", "type": "module"},
+  "action": {"default_title": "DS File for Mac · 设置", "default_popup": "popup.html"},
+  "web_accessible_resources": [{
+    "resources": ["handoff.html"],
+    "matches": ["http://*/*", "https://*/*"]
+  }]
+}
