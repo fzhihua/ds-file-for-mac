@@ -1,0 +1,37 @@
+name: Publish preview release
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  publish:
+    if: contains(github.event.head_commit.message, '[release]')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm test
+      - run: npm run check
+      - name: Build unpacked Chrome extension ZIP
+        shell: bash
+        run: |
+          version="$(node -p "require('./package.json').version")"
+          echo "RELEASE_TAG=v${version}-rc.1" >> "$GITHUB_ENV"
+          echo "ASSET=ds-file-for-mac-v${version}.zip" >> "$GITHUB_ENV"
+          cd extension
+          zip -X -q -9 "$GITHUB_WORKSPACE/ds-file-for-mac-v${version}.zip" *.js *.html *.css manifest.json
+      - name: Validate ZIP
+        run: unzip -t "$ASSET"
+      - name: Create prerelease
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            echo "Release tag already exists; refusing to replace it" >&2
+            exit 1
+          fi
+          gh release create "$RELEASE_TAG" "./$ASSET" --target "$GITHUB_SHA" --prerelease --title "DS File for Mac $RELEASE_TAG" --notes "Community preview: clear per-NAS authorization status and multi-NAS listing. Chrome still requires one user-approved host permission per NAS. No private NAS credentials included. TS file extension recognized; real TS playback not yet validated. The existing SID-in-URL limitation remains. IINA 1.4.4+ recommended."

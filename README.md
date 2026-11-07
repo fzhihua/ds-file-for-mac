@@ -6,9 +6,9 @@
 
 > This is **not** a port of Synology's official DS file app, and is **not affiliated with or endorsed by Synology or IINA**. It only implements video playback handoff.
 
-## 立即试用 V0.3.1 RC1（Mac + Chrome）
+## 立即试用 V0.3.2 RC1（Mac + Chrome）
 
-**[下载 V0.3.1 RC1 安装 ZIP](https://github.com/fzhihua/ds-file-for-mac/releases/download/v0.3.1-rc.1/ds-file-for-mac-v0.3.1.zip)** · [查看 Release](https://github.com/fzhihua/ds-file-for-mac/releases/tag/v0.3.1-rc.1)
+**[下载 V0.3.2 RC1 安装 ZIP](https://github.com/fzhihua/ds-file-for-mac/releases/download/v0.3.2-rc.1/ds-file-for-mac-v0.3.2.zip)** · [查看 Release](https://github.com/fzhihua/ds-file-for-mac/releases/tag/v0.3.2-rc.1)
 
 > **这是 GitHub 预览版，不是 Chrome Web Store 已上架扩展。** 需要通过 Chrome「加载已解压的扩展程序」安装，**不能直接把 ZIP 拖进 Chrome**。ZIP 根目录含有 `manifest.json`，无须构建。
 
@@ -20,6 +20,10 @@
 6. 返回 File Station，选视频点「播放」。Chrome 可能首次要求允许打开 IINA；选择允许。插件将调用 IINA，并尝试在切换焦点后约 5 秒关闭临时交接页。
 7. 若没有拦截，先刷新 File Station 并检查扩展弹窗的站点授权和自动拦截开关；若交接页显示但没有自动播放，可点「用 IINA 播放」。
 
+**授权状态与多 NAS：** 弹窗高亮显示当前 NAS 的“已授权 / 未授权 / 授权失效”，并分别列出已登记的 NAS。打开 NAS 的 File Station 后点击扩展图标会自动识别地址；Chrome 首次授权仍需用户点击确认，插件不会静默申请全站权限。不同 NAS 的 SID 会话缓存和拦截规则彼此隔离。
+
+**TS 视频：** 文件路径解析已允许 `.ts`，但如果 File Station 对文件只执行下载、不产生 `SYNO.VideoController2.Application` 播放跳转，本插件不会自动截获；即便生成有效播放链接，TS 容器或编码仍需在 IINA 中验证。本发布不宣称已修复用户的具体 TS 播放问题。
+
 **路径确认：** 也可以直接下载本仓库源码，在 `chrome://extensions` 中选择 `extension/` 文件夹（`manifest.json` 位于其中）。
 
 **安全提醒：** 当前播放 URL 仍包含 NAS 会话 SID。只在自己的设备使用，不要分享播放链接、浏览器日志或含令牌截图；推荐使用验证证书的 HTTPS 和视频目录只读账户。HTTP 可能泄露登录和会话信息。详细见 [SECURITY.md](SECURITY.md)。
@@ -29,13 +33,13 @@
 ## 当前状态 / Status
 
 - **V0.2（个人使用版）**：DS218 / DSM 6.2.4 + Mac Chrome + IINA 实际播放及自动关闭临时标签，用户已验证。
-- **V0.3.1（社区预览版）**：移除了私人 NAS 网址和历史会话数据；动态授权 NAS 站点，从截获 URL 自动识别协议、主机和端口；临时 SID 按站点隔离；包含本地测试。**尚未完成其他用户或 DSM 7.x 的端到端验收。**
+- **V0.3.2（社区预览版）**：移除了私人 NAS 网址和历史会话数据；动态授权 NAS 站点，从截获 URL 自动识别协议、主机和端口；临时 SID 按站点隔离；包含本地测试。**尚未完成其他用户或 DSM 7.x 的端到端验收。**
 - 尚未上架 Chrome Web Store，不保证 DSM 7.x 及各种登录模式兼容。
 
 ## 安装和使用（macOS + Chrome）
 
 1. 安装 [IINA](https://iina.io/) **1.4.4 或以上**版本。
-2. 从 GitHub 的本仓库 Releases 下载 `ds-file-for-mac-v0.3.1.zip`，解压到固定文件夹；或直接使用源码里的 `extension/` 文件夹。
+2. 从 GitHub 的本仓库 Releases 下载 `ds-file-for-mac-v0.3.2.zip`，解压到固定文件夹；或直接使用源码里的 `extension/` 文件夹。
 3. 在 Chrome 打开 `chrome://extensions`，启用**开发者模式**，点击**加载已解压的扩展程序**，选择包含 `manifest.json` 的文件夹。
 4. 用 Chrome 打开你的 NAS 的 File Station 网页并登录（例如 `https://nas.example.com:5001/`）。
 5. 点击 Chrome 工具栏中的 **DS File for Mac** 图标，核对自动识别的站点地址，点击**授权当前 NAS**。只授予所选站点权限。必要时可在弹出窗口手动输入站点 Origin（不含路径/参数）。
