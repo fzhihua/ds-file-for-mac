@@ -14,7 +14,7 @@ const dir=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../extensio
 const manifest=JSON.parse(fs.readFileSync(path.join(dir,'manifest.json'),'utf8'));
 
 test('manifest uses MV3, optional host access and no private NAS data',()=>{
- assert.equal(manifest.version,'0.3.0');
+ assert.equal(manifest.version,'0.3.1');
  assert.equal(manifest.manifest_version,3);
  assert.deepEqual(manifest.host_permissions,undefined);
  assert.deepEqual(manifest.optional_host_permissions,['http://*/*','https://*/*']);
@@ -126,7 +126,7 @@ test('handoff guards origin before reading cookies or sending requests and keeps
  assert.ok(src.includes('sidStorageKey(nasOrigin)'));
  assert.ok(!src.includes('settings.baseUrl'));
  assert.ok(src.includes('settings?.autoClose'));
- assert.ok(src.includes('AUTO_CLOSE_DELAY_MS = 1800'));
+ assert.ok(src.includes('AUTO_CLOSE_DELAY_MS = 5000'));
  assert.ok(src.includes('window.addEventListener("blur"'));
  assert.ok(src.includes('settings?.autoClose ? Date.now() : 0'));
 });

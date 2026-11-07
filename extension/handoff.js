@@ -11,7 +11,7 @@ let nasOrigin = null;
 let closeArmedAt = 0;
 let closeTimer = null;
 const AUTO_CLOSE_WINDOW_MS = 20000;
-const AUTO_CLOSE_DELAY_MS = 1800;
+const AUTO_CLOSE_DELAY_MS = 5000;
 
 // 无原生消息宿主时，Chrome 无法验证 IINA 进程或播放成功。
 // 因此仅在发出 iina:// 调用且交接页失去焦点后尝试关闭；失败时仍留有手动重试入口。
