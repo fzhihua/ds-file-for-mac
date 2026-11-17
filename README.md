@@ -1,83 +1,74 @@
-# DS File for Mac
+# DS File for Mac | 群晖 DS file Mac 视频播放插件
 
-**非官方 Chrome 扩展：在 Mac 上获得类似 Synology DS file 手机 App 的“NAS 视频交给本地播放器”体验。**
+**English:** An **unofficial Chrome extension** that lets macOS users keep browsing Synology **File Station** and open videos in the local **IINA** player. Inspired by the mobile DS file experience—no extra media server required.
 
-**Unofficial Chrome extension inspired by Synology DS file.** Keep browsing files in Synology **File Station**, click **Play**, and have the video handed to **IINA** on macOS. No media-server installation or NAS file migration required.
+**中文：** 非官方 Chrome 插件，补上 Mac 缺少的 **DS file 式播放体验**：继续使用群晖 File Station 网页选视频，点击「播放」后直接交给本机 **IINA**，无需额外安装 Plex/Emby、迁移视频或完整下载。
 
-> This is **not** a port of Synology's official DS file app, and is **not affiliated with or endorsed by Synology or IINA**. It only implements video playback handoff.
+> **Independent project / 非官方项目：** Not affiliated with Synology or IINA. This is **not** the full Synology DS file application port. / 与群晖和 IINA 官方无关联，也不是完整 DS file Mac 移植版。
 
-## 立即试用 V0.3.2 RC1（Mac + Chrome）
+## 简体中文｜下载与安装
 
-**[下载 V0.3.2 RC1 安装 ZIP](https://github.com/fzhihua/ds-file-for-mac/releases/download/v0.3.2-rc.1/ds-file-for-mac-v0.3.2.zip)** · [查看 Release](https://github.com/fzhihua/ds-file-for-mac/releases/tag/v0.3.2-rc.1)
+**[下载 V0.3.3 RC1](https://github.com/fzhihua/ds-file-for-mac/releases/download/v0.3.3-rc.1/ds-file-for-mac-v0.3.3.zip)** · [查看 GitHub Release](https://github.com/fzhihua/ds-file-for-mac/releases/tag/v0.3.3-rc.1)
 
-> **这是 GitHub 预览版，不是 Chrome Web Store 已上架扩展。** 需要通过 Chrome「加载已解压的扩展程序」安装，**不能直接把 ZIP 拖进 Chrome**。ZIP 根目录含有 `manifest.json`，无须构建。
+本版本是 **GitHub 预览版**，尚未发布到 Chrome Web Store。
 
-1. 确认 Mac 已安装 **IINA 1.4.4 或更新版本**。
-2. 下载上面的 ZIP，解压到一个不会随意删除或移动的文件夹。
-3. Chrome 打开 `chrome://extensions` → 开启「开发者模式」→「加载已解压的扩展程序」→ **选择解压后包含 `manifest.json` 的文件夹**。
-4. **不要在同一个 Chrome 配置文件内同时启用 V0.2 和 V0.3.x 的自动拦截。** 推荐用新 Chrome 配置文件试用 V0.3；或者先把旧 V0.2 扩展禁用（不必卸载）。
-5. 在该 Chrome 中打开你的 NAS **File Station** 并登录；点击工具栏中的 **DS File for Mac** 扩展图标，检查识别出的 NAS 地址并点击「授权当前 NAS」。
-6. 返回 File Station，选视频点「播放」。Chrome 可能首次要求允许打开 IINA；选择允许。插件将调用 IINA，并尝试在切换焦点后约 5 秒关闭临时交接页。
-7. 若没有拦截，先刷新 File Station 并检查扩展弹窗的站点授权和自动拦截开关；若交接页显示但没有自动播放，可点「用 IINA 播放」。
+1. 在 Mac 上安装 **IINA 1.4.4 或更新版**。
+2. 下载 ZIP、解压到固定文件夹。不能直接将 ZIP 拖进 Chrome；解压后的文件夹根目录应有 manifest.json 和 _locales 目录。
+3. Chrome 打开 chrome://extensions，开启「开发者模式」，点击「加载已解压的扩展程序」，选中解压后的文件夹。
+4. 如果旧 V0.2/V0.3 扩展还在同一个 Chrome 配置文件中运行，先**禁用旧版自动拦截**，避免同时拦截；也可以新建 Chrome 配置文件测试。
+5. 在 Chrome 登录群晖 File Station，点扩展图标。插件会识别当前 NAS 的协议、域名、端口；首次使用点击「授权当前 NAS」一次。
+6. 在 File Station 点击视频「播放」。Chrome 可能要求确认打开 IINA。成功移交后临时标签页通常会在失去焦点 **5 秒后**自动关闭。
+7. 如果没有自动播放，可在交接页点「用 IINA 播放」。授权状态会显示「已授权 / 未授权 / 授权失效」。
 
-**授权状态与多 NAS：** 弹窗高亮显示当前 NAS 的“已授权 / 未授权 / 授权失效”，并分别列出已登记的 NAS。打开 NAS 的 File Station 后点击扩展图标会自动识别地址；Chrome 首次授权仍需用户点击确认，插件不会静默申请全站权限。不同 NAS 的 SID 会话缓存和拦截规则彼此隔离。
+**中文界面自动识别：** Chrome 界面语言为简体中文时显示中文；英文 Chrome 显示英文；其他语言回退英文。无需手动填写语言或增开 NAS 权限。
 
-**TS 视频：** 文件路径解析已允许 `.ts`，但如果 File Station 对文件只执行下载、不产生 `SYNO.VideoController2.Application` 播放跳转，本插件不会自动截获；即便生成有效播放链接，TS 容器或编码仍需在 IINA 中验证。本发布不宣称已修复用户的具体 TS 播放问题。
+## English | Download & setup
 
-**路径确认：** 也可以直接下载本仓库源码，在 `chrome://extensions` 中选择 `extension/` 文件夹（`manifest.json` 位于其中）。
+**[Download V0.3.3 RC1](https://github.com/fzhihua/ds-file-for-mac/releases/download/v0.3.3-rc.1/ds-file-for-mac-v0.3.3.zip)** · [Release notes](https://github.com/fzhihua/ds-file-for-mac/releases/tag/v0.3.3-rc.1)
 
-**安全提醒：** 当前播放 URL 仍包含 NAS 会话 SID。只在自己的设备使用，不要分享播放链接、浏览器日志或含令牌截图；推荐使用验证证书的 HTTPS 和视频目录只读账户。HTTP 可能泄露登录和会话信息。详细见 [SECURITY.md](SECURITY.md)。
+This is a **GitHub preview**, not yet listed in the Chrome Web Store.
 
-**自动关闭时序：** 只有已发出 IINA 打开指令，且交接标签页失去焦点或被隐藏后，才开始约 **5 秒**的关闭延迟。并非点击播放后固定 5 秒关闭。Chrome 无法核实 IINA 是否真正启动；首次外部应用授权弹窗可能影响焦点判断，遇到误关可在扩展设置中关闭自动收起。
+1. Install **IINA 1.4.4 or newer** on your Mac.
+2. Download and unzip the extension ZIP to a permanent folder. The extracted root should contain manifest.json and _locales; do **not** drag the ZIP directly into Chrome.
+3. Open chrome://extensions, enable **Developer mode**, choose **Load unpacked**, and select the extracted folder.
+4. Disable interception in an older copy of this extension in the same Chrome profile, or try a separate Chrome profile, so two copies do not intercept the same navigation.
+5. Open your Synology File Station page in Chrome and sign in. Click the extension icon; it detects the NAS protocol, hostname and port. Select **Authorize current NAS** once per origin.
+6. In File Station, click **Play** on a video. Chrome may prompt you to allow opening IINA. Once focus moves away, the temporary handoff tab attempts to close after **5 seconds**.
+7. If the automatic handoff does not start, select **Play in IINA** on the handoff page. The popup clearly distinguishes authorized, unauthorized and revoked NAS permissions.
 
-## 当前状态 / Status
+**Automatic language selection:** Chrome's UI language selects Simplified Chinese or English using the official extension i18n system. Other locales fall back to English. Language selection does not require extra NAS permissions.
 
-- **V0.2（个人使用版）**：DS218 / DSM 6.2.4 + Mac Chrome + IINA 实际播放及自动关闭临时标签，用户已验证。
-- **V0.3.2（社区预览版）**：移除了私人 NAS 网址和历史会话数据；动态授权 NAS 站点，从截获 URL 自动识别协议、主机和端口；临时 SID 按站点隔离；包含本地测试。**尚未完成其他用户或 DSM 7.x 的端到端验收。**
-- 尚未上架 Chrome Web Store，不保证 DSM 7.x 及各种登录模式兼容。
+## 功能与边界 | Scope & limitations
 
-## 安装和使用（macOS + Chrome）
+| 功能 / Feature | 当前状态 / Status |
+|---|---|
+| File Station 播放跳转 / Video-player navigation interception | Supported after per-NAS authorization / 已授权站点支持 |
+| IINA 本地播放 / Local IINA playback | Supported on the verified DSM 6 setup / 已在 DSM 6 环境验证 |
+| 多台 NAS / Multiple NAS sites | Each origin uses its own permissions and session cache / 各自授权与缓存 |
+| 标签页自动关闭 / Close handoff tab | 5-second delay after focus loss / 失焦后延迟 5 秒 |
+| 中英双语 / Chinese & English | Automatic Chrome UI language selection / 根据 Chrome 界面语言自动选择 |
+| DSM 7.x, English-language DSM | Not field-tested / 尚未进行端到端实测 |
+| Video indexing, Plex replacement, NAS file modifications | Not included / 暂不提供 |
 
-1. 安装 [IINA](https://iina.io/) **1.4.4 或以上**版本。
-2. 从 GitHub 的本仓库 Releases 下载 `ds-file-for-mac-v0.3.2.zip`，解压到固定文件夹；或直接使用源码里的 `extension/` 文件夹。
-3. 在 Chrome 打开 `chrome://extensions`，启用**开发者模式**，点击**加载已解压的扩展程序**，选择包含 `manifest.json` 的文件夹。
-4. 用 Chrome 打开你的 NAS 的 File Station 网页并登录（例如 `https://nas.example.com:5001/`）。
-5. 点击 Chrome 工具栏中的 **DS File for Mac** 图标，核对自动识别的站点地址，点击**授权当前 NAS**。只授予所选站点权限。必要时可在弹出窗口手动输入站点 Origin（不含路径/参数）。
-6. 回到 File Station，选择视频点击**播放**。新标签页将转为插件交接页，并尝试启动 IINA。Chrome 可能首次询问是否允许打开外部应用。成功切换焦点后约 5 秒自动关闭临时标签页。
-7. 若未自动打开，点击交接页的 **用 IINA 播放**；如果 Chrome 会话无法用于 File Station API，则交接页可用 NAS 账号创建临时会话。
+播放识别基于群晖 URL 中的技术字段（如 SYNO.VideoController2.Application、launchParam），**与 File Station 按钮显示中文或英文无关**。但高版本 DSM 可能采用不同的接口或路径，尚未验证全部机型。
 
-**HTTP/HTTPS：** 两者均支持站点识别，但 HTTP 会明文传输 SID 和视频数据；在 HTTP 上使用账号密码登录前，必须额外勾选风险确认。推荐使用经过正确证书验证的 HTTPS。
+The interception is based on Synology's URL parameters, **not translated button labels**. Different DSM versions may use different endpoints; compatibility has not been proven on every version.
 
-**隐私提示：** 会话 SID 仍被放入 `/fbdownload/` 视频 URL，并交给 IINA。**绝对不要分享包含 SID 的 URL、浏览器诊断日志或截图**。建议用仅有视频文件夹读取权限的专用 NAS 账号。见 [SECURITY.md](SECURITY.md) 和 [PRIVACY.md](PRIVACY.md)。
+## 安全提示 | Security & privacy
 
-## 做什么 / 不做什么
+- **SID 是登录会话凭据，不是一次性视频分享码。** 当前实现会将 SID 放入交给 IINA 的视频 URL。不要把完整播放链接、Cookie 或调试日志发到公开 Issue。 / **SID is a login-session credential**, not a single-file link; never share a playback URL, Cookie or diagnostic log containing one.
+- HTTP 不加密会话、密码或视频传输。建议使用正确验证服务器证书的 HTTPS；尽量使用仅能读取视频目录的普通账号。 / HTTP is unencrypted. Prefer properly verified HTTPS and a least-privilege read-only NAS account.
+- 插件不会将 NAS 账号密码持久保存或上传给项目作者，没有遥测、第三方统计和广告代码。 / The extension does not persist NAS passwords or send data to the maintainer; no telemetry or analytics libraries are included.
+- [完整安全说明 / Security](SECURITY.md) · [隐私说明 / Privacy](PRIVACY.md) · [兼容性 / Compatibility](docs/COMPATIBILITY.md)
 
-**做：** 拦截 `launchApp=SYNO.VideoController2.Application` 的 File Station 视频播放器导航；提取 `/volumeN/共享目录/...` 路径；调用 NAS `/fbdownload/` 和 Mac IINA；自动关闭交接标签。支持多站点分开授权（最多 10 个），每个站点的会话缓存相互隔离。
+## 开发与反馈 | Development & feedback
 
-**不做：** 视频索引与管理、Plex/Emby 替代、云端转码、任何 NAS 文件写入、后台跨目录扫描。不会把 NAS 密码保存到本地或上传第三方服务。
+Run **npm test** for automated tests and **npm run check** for JavaScript syntax validation. The release workflow also verifies that English and Chinese locale catalogs are packaged into the ZIP.
 
-## 技术与权限
+欢迎通过 [GitHub Issues](https://github.com/fzhihua/ds-file-for-mac/issues) 反馈兼容性问题，但请移除域名、真实文件路径、SID、Cookie、账号等敏感信息。
 
-- Chrome Manifest V3；`declarativeNetRequestWithHostAccess` 仅在已授权 NAS URL 上重定向；`activeTab` 用于读取用户当前主动选中的站点。
-- `optional_host_permissions` 声明 HTTP/HTTPS 的可选范围，**首次安装时不获取所有网站权限**；每个 NAS 主机需要用户明确授权。Chrome 站点权限模式不限定端口，插件内部匹配规则额外精确校验协议、主机及端口。
-- `cookies` 用于读取**指定 NAS**的登录 `id` Cookie；`storage.session` 只保存按 Origin 分开的临时 SID。
-- 插件包中只有 `handoff.html` 被声明为 Web Accessible Resource，用于 Chrome 重定向；页面再次验证站点已授权后才访问 NAS。
-- SID 在外部播放器 URL 中的风险尚未完全消除，属于明确的**已知限制**。
+Please report compatibility issues via [GitHub Issues](https://github.com/fzhihua/ds-file-for-mac/issues) **without including real NAS hostnames, private file paths, SIDs, Cookies or credentials**.
 
-## 开发与测试
+**Search terms / 搜索关键词:** DS file Mac, DS file for macOS, Synology DS file Chrome extension, File Station IINA, 群晖 DS file Mac 版, 群晖视频本地播放。
 
-```bash
-node --version  # 推荐 Node.js 20+
-npm test
-npm run check
-```
-
-测试不连接真实 NAS，不包含真实视频、域名、密码或 SID。更多内容参见 [docs/COMPATIBILITY.md](docs/COMPATIBILITY.md)。
-
-## 反馈
-
-请使用 GitHub Issues。不要在 Issues 中附带私人 NAS 域名、完整路径、SID、Cookie 或登录记录。
-
-**关键词：** DS file for Mac、Synology DS file macOS、群晖 DS file Mac 版、File Station Chrome IINA、NAS 视频本地播放器。
-
-MIT License。
+Licensed under MIT.
