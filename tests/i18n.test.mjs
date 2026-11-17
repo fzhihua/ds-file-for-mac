@@ -40,7 +40,7 @@ test('all visible HTML and runtime translation keys exist in both locales',()=>{
 test('Chrome UI language selects both catalog messages and DOM strings',()=>{
  const saved=globalThis.chrome;
  try{
-  globalThis.chrome={i18n:{getMessage:key=>translated(en,key)}};
+  globalThis.chrome={i18n:{getMessage:key=>en[key]?.message||""}};
   assert.equal(t('authorizedStatus'),en.authorizedStatus.message);
   assert.match(t('grantSuccess','https://nas.example:5001'),/Authorized https:\/\/nas/);
   const titleNode={getAttribute:()=> 'popupTitle',textContent:''};
@@ -49,7 +49,7 @@ test('Chrome UI language selects both catalog messages and DOM strings',()=>{
     selector==='[data-i18n]'?[titleNode]:selector==='[data-i18n-placeholder]'?[placeholderNode]:[]};
   localizePage(root);assert.equal(root.documentElement.lang,'en');
   assert.equal(titleNode.textContent,en.popupTitle.message);
-  globalThis.chrome={i18n:{getMessage:key=>translated(zh,key)}};
+  globalThis.chrome={i18n:{getMessage:key=>zh[key]?.message||""}};
   localizePage(root);assert.equal(root.documentElement.lang,'zh-CN');
   assert.equal(titleNode.textContent,zh.popupTitle.message);
   assert.match(t('grantSuccess','https://nas.example:5001'),/已授权 https:\/\/nas/);

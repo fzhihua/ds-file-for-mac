@@ -22,6 +22,7 @@ test('manifest uses MV3, optional host access and no private NAS data',()=>{
  assert.ok(manifest.permissions.includes('declarativeNetRequestWithHostAccess'));
  assert.deepEqual(manifest.web_accessible_resources[0].resources,['handoff.html']);
  for(const f of fs.readdirSync(dir)) {
+  if (!fs.statSync(path.join(dir,f)).isFile()) continue;
   const content=fs.readFileSync(path.join(dir,f),'utf8');
   assert.doesNotMatch(content,/SynoToken=d[\w.]+|_sid=%22[A-Za-z0-9_-]{40}/);
  }
