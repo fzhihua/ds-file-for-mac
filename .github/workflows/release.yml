@@ -22,9 +22,12 @@ jobs:
           echo "RELEASE_TAG=v${version}-rc.1" >> "$GITHUB_ENV"
           echo "ASSET=ds-file-for-mac-v${version}.zip" >> "$GITHUB_ENV"
           cd extension
-          zip -X -q -9 "$GITHUB_WORKSPACE/ds-file-for-mac-v${version}.zip" *.js *.html *.css manifest.json
+          zip -X -q -9 -r "$GITHUB_WORKSPACE/ds-file-for-mac-v${version}.zip" *.js *.html *.css manifest.json _locales
       - name: Validate ZIP
-        run: unzip -t "$ASSET"
+        run: |
+          unzip -t "$ASSET"
+          unzip -Z -1 "$ASSET" | grep -Fx "_locales/en/messages.json"
+          unzip -Z -1 "$ASSET" | grep -Fx "_locales/zh_CN/messages.json"
       - name: Create prerelease
         env:
           GH_TOKEN: ${{ github.token }}
@@ -34,4 +37,19 @@ jobs:
             echo "Release tag already exists; refusing to replace it" >&2
             exit 1
           fi
-          gh release create "$RELEASE_TAG" "./$ASSET" --target "$GITHUB_SHA" --prerelease --title "DS File for Mac $RELEASE_TAG" --notes "Community preview: clear per-NAS authorization status and multi-NAS listing. Chrome still requires one user-approved host permission per NAS. No private NAS credentials included. TS file extension recognized; real TS playback not yet validated. The existing SID-in-URL limitation remains. IINA 1.4.4+ recommended."
+          cat > RELEASE_NOTES.md <<'NOTES'
+          ## English
+          - Supports English and Simplified Chinese automatically according to the Chrome UI language.
+          - Localized extension name, settings, NAS authorization state, errors and IINA playback handoff.
+          - Same File Station URL handling, per-NAS SID isolation and five-second tab close; no NAS configuration changes.
+          - English DSM / DSM 7.x end-to-end playback remains unverified.
+          - Security: the player URL still includes a Synology SID. Never share it. Use IINA 1.4.4 or later.
+          
+          ## 简体中文
+          - 新增根据 Chrome 界面语言自动显示简体中文或英文。
+          - 插件名称、设置、NAS 授权状态、错误提示、IINA 播放交接页均完成国际化。
+          - File Station 链接解析、不同 NAS 会话隔离、五秒自动关闭标签功能保持不变。
+          - 英文 DSM、DSM 7.x 的端到端播放兼容性仍待验证。
+          - 安全提醒：视频 URL 仍包含群晖 SID，请勿分享；需 IINA 1.4.4 或更新版。
+          NOTES
+          gh release create "$RELEASE_TAG" "./$ASSET" --target "$GITHUB_SHA" --prerelease --title "DS File for Mac $RELEASE_TAG | 中英双语 Chinese/English" --notes-file RELEASE_NOTES.md

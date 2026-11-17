@@ -3,17 +3,17 @@ export const DEFAULT_SETTINGS = Object.freeze({enabled: true, autoOpen: true, au
 export const MAX_SITES = 10;
 
 export function normalizeOrigin(input) {
-  if (typeof input !== "string" || input.length > 2048) throw new Error("NAS 站点地址无效");
+  if (typeof input !== "string" || input.length > 2048) throw new Error(t("invalidNasAddress"));
   const u = new URL(input);
   if (!["http:", "https:"].includes(u.protocol) || u.username || u.password ||
       u.pathname !== "/" || u.search || u.hash || !u.hostname) {
-    throw new Error("只能填写 NAS 的 http(s) 协议、域名/IP 和端口，不要包含路径、账号或参数");
+    throw new Error(t("invalidNasOriginFormat"));
   }
   return u.origin;
 }
 
 export function originFromTabUrl(tabUrl) {
-  if (typeof tabUrl !== "string" || tabUrl.length > 8192) throw new Error("无法获取当前网页地址");
+  if (typeof tabUrl !== "string" || tabUrl.length > 8192) throw new Error(t("invalidCurrentTabUrl"));
   const u = new URL(tabUrl);
   return normalizeOrigin(u.origin);
 }
@@ -54,19 +54,19 @@ export function buildRedirectRule(origin, ruleId, handoffUrl) {
 }
 
 export function parseLaunchParam(value) {
-  if (typeof value !== "string" || value.length > 16000) throw new Error("播放器参数不存在或过长");
+  if (typeof value !== "string" || value.length > 16000) throw new Error(t("invalidPlayerParams"));
   const args = new URLSearchParams(value);
   const physicalPath = args.get("path");
-  if (!physicalPath || physicalPath.includes("\0")) throw new Error("链接没有有效的视频路径");
+  if (!physicalPath || physicalPath.includes("\0")) throw new Error(t("invalidVideoPath"));
   const m = /^\/volume[1-9][0-9]*\/(.+)$/u.exec(physicalPath);
-  if (!m) throw new Error("仅支持 /volume数字/共享文件夹/... 格式的视频路径");
+  if (!m) throw new Error(t("unsupportedPhysicalPath"));
   const parts = m[1].split("/");
   if (parts.length < 2 || parts.some(x => !x || x === "." || x === ".." || x.includes("\\"))) {
-    throw new Error("视频路径缺失共享文件夹或包含非法片段");
+    throw new Error(t("invalidVideoSegments"));
   }
   const filename = parts.at(-1);
   if (!/\.(mp4|mkv|mov|m4v|avi|webm|wmv|flv|ts|m2ts|mpg|mpeg|3gp)$/i.test(filename)) {
-    throw new Error("不是已支持的视频扩展名");
+    throw new Error(t("unsupportedMediaFile"));
   }
   return {physicalPath, sharePath: "/" + m[1], filename};
 }
@@ -83,17 +83,17 @@ export function sharePathToHex(path) {
 export function buildPlaybackUrl(origin, sharePath, sid) {
   const base = normalizeOrigin(origin);
   if (!sharePath.startsWith("/") || sharePath.includes("\0") || !sharePath.includes("/", 1)) {
-    throw new Error("视频文件路径无效");
+    throw new Error(t("invalidPlaybackPath"));
   }
   const goodSid = normalizeSid(sid);
-  if (!goodSid) throw new Error("缺少有效的 SID");
+  if (!goodSid) throw new Error(t("invalidSid"));
   const file = sharePath.split("/").at(-1);
   return `${base}/fbdownload/${encodeURIComponent(file)}?dlink=${encodeURIComponent('"'+sharePathToHex(sharePath)+'"')}&_sid=${encodeURIComponent('"'+goodSid+'"')}&mode=open`;
 }
 
 export function buildIinaUrl(playUrl) {
   const u = new URL(playUrl);
-  if (!["http:", "https:"].includes(u.protocol)) throw new Error("视频播放地址协议不受支持");
+  if (!["http:", "https:"].includes(u.protocol)) throw new Error(t("unsupportedPlaybackProtocol"));
   // Never accept optional mpv_ flags: old IINA versions had an iina:// URL-handler flaw.
   return `iina://open?url=${encodeURIComponent(playUrl)}`;
 }
@@ -105,4 +105,22 @@ export function sidStorageKey(origin) {
 export async function getSettings() {
   const x = await chrome.storage.local.get(DEFAULT_SETTINGS);
   return {enabled: Boolean(x.enabled), autoOpen: Boolean(x.autoOpen), autoClose: Boolean(x.autoClose)};
+}
+
+
+// Chrome selects translations from the browser UI language; other locales fall back to English.
+export function t(key, ...args) {
+  const message = typeof chrome !== "undefined" && chrome.i18n?.getMessage
+    ? chrome.i18n.getMessage(key) : "";
+  const template = message || key;
+  return template.replace(/\{(\d+)\}/g, (_, index) => String(args[Number(index)] ?? ""));
+}
+export function localizePage(root = document) {
+  root.documentElement.lang = t("languageCode");
+  for (const node of root.querySelectorAll("[data-i18n]")) {
+    node.textContent = t(node.getAttribute("data-i18n"));
+  }
+  for (const node of root.querySelectorAll("[data-i18n-placeholder]")) {
+    node.placeholder = t(node.getAttribute("data-i18n-placeholder"));
+  }
 }

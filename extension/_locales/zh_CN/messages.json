@@ -1,0 +1,251 @@
+{
+  "languageCode": {
+    "message": "zh-CN"
+  },
+  "appName": {
+    "message": "DS File for Mac — IINA（非官方）"
+  },
+  "appShortName": {
+    "message": "DS File for Mac"
+  },
+  "appDescription": {
+    "message": "非官方：在群晖 File Station 点击播放，自动交给 Mac 本地 IINA。首次使用须授权当前 NAS 站点。"
+  },
+  "actionTitle": {
+    "message": "DS File for Mac · 设置"
+  },
+  "unofficialBadge": {
+    "message": "DS File for Mac · 非官方"
+  },
+  "popupTitle": {
+    "message": "播放设置"
+  },
+  "popupIntro": {
+    "message": "打开群晖 File Station 后点击扩展图标，即可自动识别 NAS 地址。首次使用每台 NAS 需授权一次，此后会自动截获播放。"
+  },
+  "detectingTab": {
+    "message": "检测当前标签页……"
+  },
+  "checkingAuthorization": {
+    "message": "正在检查当前 NAS 授权……"
+  },
+  "grantSite": {
+    "message": "授权当前 NAS"
+  },
+  "manualOrigin": {
+    "message": "或者手动填写 NAS 入口（仅当前站点）"
+  },
+  "originPlaceholder": {
+    "message": "https://nas.example.com:5001"
+  },
+  "noRegisteredSites": {
+    "message": "尚未登记任何 NAS 站点"
+  },
+  "enableIntercept": {
+    "message": "自动截获已授权 NAS 的播放器跳转"
+  },
+  "autoOpenIina": {
+    "message": "自动启动 IINA"
+  },
+  "autoCloseTab": {
+    "message": "IINA 接管后关闭临时交接标签"
+  },
+  "clearSid": {
+    "message": "清除临时 SID"
+  },
+  "removeSite": {
+    "message": "移除当前 NAS 授权"
+  },
+  "popupSecurity": {
+    "message": "授权仅限你选择的 NAS 主机。HTTP 会暴露 SID/密码；推荐使用可信 HTTPS。SID 仍可能出现在 IINA 视频 URL 中，请勿分享播放链接。"
+  },
+  "popupFooter": {
+    "message": "需要 IINA 1.4.4 或更新版本。未经 Synology 或 IINA 官方认可。"
+  },
+  "unknownOrigin": {
+    "message": "未识别 NAS · 请先打开 File Station，或填写 NAS 入口"
+  },
+  "authorizedStatus": {
+    "message": "已授权 · 当前 NAS 可以自动截获播放"
+  },
+  "permissionLostStatus": {
+    "message": "授权失效 · Chrome 站点权限已撤销，请重新授权"
+  },
+  "unauthorizedStatus": {
+    "message": "未授权 · 首次使用请点击“授权当前 NAS”"
+  },
+  "authorizedButton": {
+    "message": "当前 NAS 已授权"
+  },
+  "registeredSites": {
+    "message": "已登记 {0} 个 NAS 入口（分别授权、分别缓存 SID）"
+  },
+  "siteAuthorizedPrefix": {
+    "message": "已授权：{0}"
+  },
+  "sitePermissionLostPrefix": {
+    "message": "权限失效：{0}"
+  },
+  "sitePermissionDenied": {
+    "message": "没有获得 NAS 站点权限，未启用拦截。"
+  },
+  "tooManySites": {
+    "message": "最多授权 {0} 个 NAS 入口"
+  },
+  "grantSuccess": {
+    "message": "已授权 {0}。返回 File Station 后可直接点击视频“播放”。"
+  },
+  "removeSuccess": {
+    "message": "已移除 {0} 的拦截授权。"
+  },
+  "settingsSaved": {
+    "message": "已保存设置。"
+  },
+  "detectedOrigin": {
+    "message": "当前网页识别为：{0}"
+  },
+  "notOrdinaryTab": {
+    "message": "当前标签页不是普通 HTTP(S) 页面；可手动填写 NAS 入口。"
+  },
+  "grantFailed": {
+    "message": "授权失败：{0}"
+  },
+  "removeFailed": {
+    "message": "移除失败：{0}"
+  },
+  "temporarySidCleared": {
+    "message": "临时 SID 已清除；NAS 浏览器登录未受影响。"
+  },
+  "settingsLoaded": {
+    "message": "设置已加载。上方显示当前 NAS 实际授权状态。"
+  },
+  "initializationFailed": {
+    "message": "初始化失败：{0}"
+  },
+  "handoffTitle": {
+    "message": "交给 IINA 播放 · 群晖"
+  },
+  "handoffHeading": {
+    "message": "正在准备本地播放"
+  },
+  "parsingVideo": {
+    "message": "正在解析视频……"
+  },
+  "loadingNasSession": {
+    "message": "读取 Chrome 当前 NAS 会话中……"
+  },
+  "playWithIina": {
+    "message": "用 IINA 播放"
+  },
+  "copyPlaybackLink": {
+    "message": "复制播放链接"
+  },
+  "needNewSession": {
+    "message": "需要新的 File Station 会话"
+  },
+  "sessionIntro": {
+    "message": "优先使用 Chrome 已登录的 NAS Cookie。若无法复用，请在这里直接向你自己的 NAS 登录。密码不会被插件保存。"
+  },
+  "username": {
+    "message": "NAS 用户名"
+  },
+  "password": {
+    "message": "NAS 密码"
+  },
+  "loginPlay": {
+    "message": "登录并播放"
+  },
+  "httpConsent": {
+    "message": "我知晓 HTTP 会明文传输密码及会话信息，仍要通过 HTTP 登录"
+  },
+  "httpWarning": {
+    "message": "连接方式直接取自 File Station 网页地址。HTTP 不加密登录密码及视频会话；建议使用可信 HTTPS。不要把密码或 SID 发到聊天中。"
+  },
+  "handoffFooter": {
+    "message": "IINA 需要更新到 1.4.4 或更高版本。Chrome 可能提示是否允许打开外部应用；自动关闭仅根据页面失焦判断，不能保证播放器已实际启动。"
+  },
+  "settingsLink": {
+    "message": "扩展设置"
+  },
+  "closeFailed": {
+    "message": "无法自动关闭标签页，可手动关闭或再次点击播放。"
+  },
+  "playReady": {
+    "message": "播放链接已准备好。若 IINA 没有自动启动，点击“用 IINA 播放”。"
+  },
+  "launchSent": {
+    "message": "已发出 IINA 打开指令。切换到播放器后，将尝试自动关闭本标签；若未打开仍可手动重试。"
+  },
+  "launchFailed": {
+    "message": "无法调用本地播放器，请点击“用 IINA 播放”重试。"
+  },
+  "nasUnavailable": {
+    "message": "当前 NAS 连接不可用，无法验证会话：{0}"
+  },
+  "httpConsentRequired": {
+    "message": "HTTP 连接不加密：如确认使用，请先勾选明文登录风险提示。"
+  },
+  "loginProgress": {
+    "message": "正在向你自己的 NAS 请求 File Station 登录会话……"
+  },
+  "loginFailed": {
+    "message": "NAS 登录失败（错误码：{0}）。检查账号、密码或双因素认证要求。"
+  },
+  "unknownError": {
+    "message": "未知"
+  },
+  "loginPermissionFailed": {
+    "message": "NAS 已登录，但 File Station 权限验证未通过"
+  },
+  "copyConfirmation": {
+    "message": "视频链接包含群晖 SID 登录会话，复制后请勿分享、上传或公开。确定复制到剪贴板吗？"
+  },
+  "copySuccess": {
+    "message": "已复制。链接包含 SID，只用于本机播放，不要转发。"
+  },
+  "copyFailed": {
+    "message": "复制失败，可点击“用 IINA 播放”"
+  },
+  "siteNotAuthorized": {
+    "message": "NAS 站点尚未获得授权。请先返回 File Station，点击扩展图标授权当前 NAS。"
+  },
+  "browserCookieUnavailable": {
+    "message": "当前 Chrome 登录 Cookie 无法用于 File Station API；请在此取得新会话。"
+  },
+  "nasParseFailed": {
+    "message": "无法解析或连接 NAS：{0}"
+  },
+  "invalidNasAddress": {
+    "message": "NAS 站点地址无效"
+  },
+  "invalidNasOriginFormat": {
+    "message": "只能填写 NAS 的 HTTP(S) 协议、域名/IP 和端口，不要包含路径、账号或参数"
+  },
+  "invalidCurrentTabUrl": {
+    "message": "无法获取当前网页地址"
+  },
+  "invalidPlayerParams": {
+    "message": "播放器参数不存在或过长"
+  },
+  "invalidVideoPath": {
+    "message": "链接没有有效的视频路径"
+  },
+  "unsupportedPhysicalPath": {
+    "message": "仅支持 /volume数字/共享文件夹/... 格式的视频路径"
+  },
+  "invalidVideoSegments": {
+    "message": "视频路径缺失共享文件夹或包含非法片段"
+  },
+  "unsupportedMediaFile": {
+    "message": "不是已支持的视频扩展名"
+  },
+  "invalidPlaybackPath": {
+    "message": "视频文件路径无效"
+  },
+  "invalidSid": {
+    "message": "缺少有效的 SID"
+  },
+  "unsupportedPlaybackProtocol": {
+    "message": "视频播放地址协议不受支持"
+  }
+}
