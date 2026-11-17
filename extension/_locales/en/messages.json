@@ -1,0 +1,251 @@
+{
+  "languageCode": {
+    "message": "en"
+  },
+  "appName": {
+    "message": "DS File for Mac — IINA (Unofficial)"
+  },
+  "appShortName": {
+    "message": "DS File for Mac"
+  },
+  "appDescription": {
+    "message": "Unofficial: Play Synology File Station videos in IINA on macOS. Authorize each NAS site once."
+  },
+  "actionTitle": {
+    "message": "DS File for Mac · Settings"
+  },
+  "unofficialBadge": {
+    "message": "DS File for Mac · Unofficial"
+  },
+  "popupTitle": {
+    "message": "Playback settings"
+  },
+  "popupIntro": {
+    "message": "Open Synology File Station in Chrome, then click this extension to detect the NAS address automatically. Authorize each NAS once; future video playback is intercepted automatically."
+  },
+  "detectingTab": {
+    "message": "Detecting the current tab…"
+  },
+  "checkingAuthorization": {
+    "message": "Checking NAS permissions…"
+  },
+  "grantSite": {
+    "message": "Authorize current NAS"
+  },
+  "manualOrigin": {
+    "message": "Or enter a NAS address manually (current site only)"
+  },
+  "originPlaceholder": {
+    "message": "https://nas.example.com:5001"
+  },
+  "noRegisteredSites": {
+    "message": "No NAS sites registered"
+  },
+  "enableIntercept": {
+    "message": "Intercept video player launches on authorized NAS sites"
+  },
+  "autoOpenIina": {
+    "message": "Open IINA automatically"
+  },
+  "autoCloseTab": {
+    "message": "Close the temporary handoff tab after switching to IINA"
+  },
+  "clearSid": {
+    "message": "Clear temporary SID"
+  },
+  "removeSite": {
+    "message": "Remove current NAS authorization"
+  },
+  "popupSecurity": {
+    "message": "Permission is limited to NAS sites you choose. HTTP exposes credentials and SID; use trusted HTTPS. SID may still appear in an IINA playback URL—never share it."
+  },
+  "popupFooter": {
+    "message": "Requires IINA 1.4.4 or later. Not affiliated with Synology or IINA."
+  },
+  "unknownOrigin": {
+    "message": "NAS not detected · Open File Station or enter the NAS address."
+  },
+  "authorizedStatus": {
+    "message": "Authorized · Automatic playback interception is enabled for this NAS."
+  },
+  "permissionLostStatus": {
+    "message": "Permission revoked · Reauthorize this NAS in Chrome."
+  },
+  "unauthorizedStatus": {
+    "message": "Not authorized · Click “Authorize current NAS” once."
+  },
+  "authorizedButton": {
+    "message": "Current NAS authorized"
+  },
+  "registeredSites": {
+    "message": "{0} NAS sites registered (separate permissions and SID cache)"
+  },
+  "siteAuthorizedPrefix": {
+    "message": "Authorized: {0}"
+  },
+  "sitePermissionLostPrefix": {
+    "message": "Permission revoked: {0}"
+  },
+  "sitePermissionDenied": {
+    "message": "Site permission was not granted. Interception remains disabled."
+  },
+  "tooManySites": {
+    "message": "You can authorize up to {0} NAS sites."
+  },
+  "grantSuccess": {
+    "message": "Authorized {0}. Return to File Station and click Play."
+  },
+  "removeSuccess": {
+    "message": "Removed authorization for {0}."
+  },
+  "settingsSaved": {
+    "message": "Settings saved."
+  },
+  "detectedOrigin": {
+    "message": "Current page detected as: {0}"
+  },
+  "notOrdinaryTab": {
+    "message": "The current tab is not an HTTP(S) site. Enter the NAS origin manually."
+  },
+  "grantFailed": {
+    "message": "Authorization failed: {0}"
+  },
+  "removeFailed": {
+    "message": "Could not remove authorization: {0}"
+  },
+  "temporarySidCleared": {
+    "message": "Temporary SIDs cleared. Your browser's NAS login is unchanged."
+  },
+  "settingsLoaded": {
+    "message": "Settings loaded. The current NAS authorization status appears above."
+  },
+  "initializationFailed": {
+    "message": "Initialization failed: {0}"
+  },
+  "handoffTitle": {
+    "message": "Open in IINA · Synology"
+  },
+  "handoffHeading": {
+    "message": "Preparing local playback"
+  },
+  "parsingVideo": {
+    "message": "Parsing video…"
+  },
+  "loadingNasSession": {
+    "message": "Reading the current NAS session from Chrome…"
+  },
+  "playWithIina": {
+    "message": "Play in IINA"
+  },
+  "copyPlaybackLink": {
+    "message": "Copy playback URL"
+  },
+  "needNewSession": {
+    "message": "A new File Station session is required"
+  },
+  "sessionIntro": {
+    "message": "The extension first tries your existing Chrome NAS login cookie. If unavailable, sign in directly to your NAS here. Your password is not stored."
+  },
+  "username": {
+    "message": "NAS username"
+  },
+  "password": {
+    "message": "NAS password"
+  },
+  "loginPlay": {
+    "message": "Sign in and play"
+  },
+  "httpConsent": {
+    "message": "I understand HTTP sends my password and session data without encryption, and still wish to sign in over HTTP."
+  },
+  "httpWarning": {
+    "message": "Connection details come from the File Station page. HTTP does not encrypt passwords or session data; use trusted HTTPS. Never share your password or SID."
+  },
+  "handoffFooter": {
+    "message": "Requires IINA 1.4.4 or later. Chrome may ask permission to open an external app. Closing the tab is based on focus changes and cannot confirm the player actually started."
+  },
+  "settingsLink": {
+    "message": "Extension settings"
+  },
+  "closeFailed": {
+    "message": "Could not close the tab automatically. Close it manually or try Play again."
+  },
+  "playReady": {
+    "message": "Playback URL is ready. If IINA did not launch, click “Play in IINA”."
+  },
+  "launchSent": {
+    "message": "Sent the request to open IINA. Once focus switches to the player, this tab will try to close automatically."
+  },
+  "launchFailed": {
+    "message": "Could not open the local player. Click “Play in IINA” to retry."
+  },
+  "nasUnavailable": {
+    "message": "NAS connection unavailable; could not verify the session: {0}"
+  },
+  "httpConsentRequired": {
+    "message": "HTTP is unencrypted. Confirm the HTTP login risk before continuing."
+  },
+  "loginProgress": {
+    "message": "Requesting a File Station login session from your NAS…"
+  },
+  "loginFailed": {
+    "message": "NAS login failed (error code: {0}). Check credentials and two-factor authentication."
+  },
+  "unknownError": {
+    "message": "unknown"
+  },
+  "loginPermissionFailed": {
+    "message": "Signed in, but File Station access validation failed."
+  },
+  "copyConfirmation": {
+    "message": "The playback URL contains a Synology SID session credential. Do not share, upload or publish it. Copy to clipboard anyway?"
+  },
+  "copySuccess": {
+    "message": "Copied. The URL contains a SID; use it locally and do not share it."
+  },
+  "copyFailed": {
+    "message": "Could not copy. Try “Play in IINA”."
+  },
+  "siteNotAuthorized": {
+    "message": "This NAS has not been authorized. Return to File Station and authorize the site from the extension popup."
+  },
+  "browserCookieUnavailable": {
+    "message": "The current Chrome login cookie cannot access the File Station API. Sign in here to create a new session."
+  },
+  "nasParseFailed": {
+    "message": "Could not parse or connect to the NAS: {0}"
+  },
+  "invalidNasAddress": {
+    "message": "Invalid NAS address."
+  },
+  "invalidNasOriginFormat": {
+    "message": "Enter only an HTTP(S) NAS origin (hostname/IP and port), without a path, credentials or query parameters."
+  },
+  "invalidCurrentTabUrl": {
+    "message": "Could not read the current tab URL."
+  },
+  "invalidPlayerParams": {
+    "message": "Missing or oversized video-player parameters."
+  },
+  "invalidVideoPath": {
+    "message": "No valid video file path found."
+  },
+  "unsupportedPhysicalPath": {
+    "message": "Only /volumeN/shared-folder/... paths are supported."
+  },
+  "invalidVideoSegments": {
+    "message": "Video path is incomplete or contains invalid segments."
+  },
+  "unsupportedMediaFile": {
+    "message": "Unsupported video file extension."
+  },
+  "invalidPlaybackPath": {
+    "message": "Invalid video playback path."
+  },
+  "invalidSid": {
+    "message": "A valid File Station SID is required."
+  },
+  "unsupportedPlaybackProtocol": {
+    "message": "Unsupported video playback URL protocol."
+  }
+}

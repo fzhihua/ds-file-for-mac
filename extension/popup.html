@@ -1,19 +1,24 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>DS File for Mac · 设置</title><link rel="stylesheet" href="style.css"><script type="module" src="popup.js"></script></head>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title data-i18n="actionTitle">DS File for Mac · Settings</title>
+  <link rel="stylesheet" href="style.css"><script type="module" src="popup.js"></script>
+</head>
 <body class="popup"><main class="panel">
-  <div class="eyebrow">DS File for Mac · 非官方</div>
-  <h1>播放设置</h1>
-  <p class="small">打开群晖 File Station 后点击扩展图标，即可自动识别 NAS 地址。首次使用每台 NAS 需授权一次，此后会自动截获播放。</p>
-  <p class="small" id="detected">检测当前标签页……</p>
-  <div id="authStatus" class="auth-state" data-state="unknown" role="status" aria-live="polite">正在检查当前 NAS 授权……</div>
-  <div class="controls"><button id="grant" class="primary" type="button">授权当前 NAS</button></div>
-  <label>或者手动填写 NAS 入口（仅当前站点）<input id="nasOrigin" placeholder="https://nas.example.com:5001" autocomplete="off" spellcheck="false"></label>
-  <p id="sites" class="small site-list">尚未授权 NAS 站点</p>
-  <label class="check"><input type="checkbox" id="enabled"> 自动截获已授权 NAS 的播放器跳转</label>
-  <label class="check"><input type="checkbox" id="autoOpen"> 自动启动 IINA</label>
-  <label class="check"><input type="checkbox" id="autoClose"> IINA 接管后关闭临时交接标签</label>
-  <div class="controls"><button type="button" id="clear">清除临时 SID</button><button type="button" id="removeSite">移除当前 NAS 授权</button></div>
-  <p class="warning">授权仅限你选择的 NAS 主机。HTTP 会暴露 SID/密码；推荐使用可信 HTTPS。SID 仍可能出现在 IINA 视频 URL 中，请勿分享播放链接。</p>
-  <p id="status" class="notice" role="status">正在读取设置……</p>
-  <p class="small">需要 IINA 1.4.4 或更新版本。未经 Synology 或 IINA 官方认可。</p>
+  <div class="eyebrow" data-i18n="unofficialBadge">DS File for Mac · Unofficial</div>
+  <h1 data-i18n="popupTitle">Playback settings</h1>
+  <p class="small" data-i18n="popupIntro">Open File Station, then authorize this NAS once.</p>
+  <p class="small" id="detected" data-i18n="detectingTab">Detecting the current tab…</p>
+  <div id="authStatus" class="auth-state" data-state="unknown" role="status" aria-live="polite" data-i18n="checkingAuthorization">Checking NAS permissions…</div>
+  <div class="controls"><button id="grant" class="primary" type="button" data-i18n="grantSite">Authorize current NAS</button></div>
+  <label><span data-i18n="manualOrigin">Or enter a NAS address manually</span><input id="nasOrigin" data-i18n-placeholder="originPlaceholder" placeholder="https://nas.example.com:5001" autocomplete="off" spellcheck="false"></label>
+  <p id="sites" class="small site-list" data-i18n="noRegisteredSites">No NAS sites registered</p>
+  <label class="check"><input type="checkbox" id="enabled"><span data-i18n="enableIntercept">Intercept video launches on authorized NAS sites</span></label>
+  <label class="check"><input type="checkbox" id="autoOpen"><span data-i18n="autoOpenIina">Open IINA automatically</span></label>
+  <label class="check"><input type="checkbox" id="autoClose"><span data-i18n="autoCloseTab">Close handoff tab after switching to IINA</span></label>
+  <div class="controls"><button type="button" id="clear" data-i18n="clearSid">Clear temporary SID</button><button type="button" id="removeSite" data-i18n="removeSite">Remove current NAS authorization</button></div>
+  <p class="warning" data-i18n="popupSecurity">Use trusted HTTPS and never share playback URLs containing a SID.</p>
+  <p id="status" class="notice" role="status" data-i18n="checkingAuthorization">Checking NAS permissions…</p>
+  <p class="small" data-i18n="popupFooter">Requires IINA 1.4.4 or later. Unofficial project.</p>
 </main></body></html>
