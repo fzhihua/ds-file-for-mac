@@ -1,6 +1,6 @@
 import {
   normalizeOrigin, sidStorageKey, parseLaunchParam, buildPlaybackUrl,
-  buildIinaUrl, getSettings, normalizeSid
+  buildIinaUrl, getSettings, normalizeSid, t, localizePage
 } from "./common.js";
 
 const $ = id => document.getElementById(id);
@@ -24,9 +24,9 @@ async function closeThisHandoffTab() {
   stopCloseTimer();
   try {
     const result = await chrome.runtime.sendMessage({type: "closeHandoffTab"});
-    if (result?.ok !== true) status("无法自动关闭标签页，可手动关闭或再次点击播放。", "bad");
+    if (result?.ok !== true) status(t("closeFailed"), "bad");
   } catch (_err) {
-    status("无法自动关闭标签页，可手动关闭或再次点击播放。", "bad");
+    status(t("closeFailed"), "bad");
   }
 }
 function scheduleCloseIfPlayerTookFocus() {
@@ -50,7 +50,7 @@ function renderPlay(sid, shouldAutoOpen) {
   playUrl = buildPlaybackUrl(nasOrigin, movie.sharePath, sid);
   $("controls").hidden = false;
   $("loginBox").hidden = true;
-  status("播放链接已准备好。若 IINA 没有自动启动，点击“用 IINA 播放”。", "ok");
+  status(t("playReady"), "ok");
   if (shouldAutoOpen) launchPlayer();
 }
 function launchPlayer() {
@@ -61,12 +61,12 @@ function launchPlayer() {
   try {
     window.location.href = buildIinaUrl(playUrl);
     if (settings?.autoClose) {
-      status("已发出 IINA 打开指令。切换到播放器后，将尝试自动关闭本标签；若未打开仍可手动重试。", "ok");
+      status(t("launchSent"), "ok");
       scheduleCloseIfPlayerTookFocus();
     }
   } catch (_err) {
     closeArmedAt = 0;
-    status("无法调用本地播放器，请点击“用 IINA 播放”重试。", "bad");
+    status(t("launchFailed"), "bad");
   }
 }
 
@@ -102,7 +102,7 @@ async function getSid() {
         return sid;
       }
     } catch (e) {
-      status("当前 NAS 连接不可用，无法验证会话：" + String(e.message || e), "bad");
+      status(t("nasUnavailable", String(e.message || e)), "bad");
     }
   }
   await chrome.storage.session.remove(key);
@@ -115,11 +115,11 @@ async function loginWithAccount(event) {
   const password = $("password").value;
   if (!account || !password) return;
   if (nasOrigin.startsWith("http://") && !$("httpConsent").checked) {
-    status("HTTP 连接不加密：如确认使用，请先勾选明文登录风险提示。", "bad");
+    status(t("httpConsentRequired"), "bad");
     return;
   }
   $("login").disabled = true;
-  status("正在向你自己的 NAS 请求 File Station 登录会话……");
+  status(t("loginProgress"));
   try {
     const form = new URLSearchParams({
       api: "SYNO.API.Auth", version: "3", method: "login",
@@ -132,9 +132,9 @@ async function loginWithAccount(event) {
     const data = await res.json();
     const sid = normalizeSid(data?.data?.sid);
     if (!res.ok || !data.success || !sid) {
-      throw new Error("NAS 登录失败（错误码：" + (data?.error?.code ?? "未知") + "）。检查账号、密码或双因素认证要求。");
+      throw new Error(t("loginFailed", data?.error?.code ?? t("unknownError")));
     }
-    if (!await testSid(sid)) throw new Error("NAS 已登录，但 File Station 权限验证未通过");
+    if (!await testSid(sid)) throw new Error(t("loginPermissionFailed"));
     await chrome.storage.session.set({[sidStorageKey(nasOrigin)]: sid});
     $("password").value = "";
     renderPlay(sid, true);
@@ -147,15 +147,16 @@ async function loginWithAccount(event) {
 }
 
 async function main() {
+  localizePage();
   window.addEventListener("blur", scheduleCloseIfPlayerTookFocus);
   window.addEventListener("focus", stopCloseTimer);
   document.addEventListener("visibilitychange", scheduleCloseIfPlayerTookFocus);
   $("play").addEventListener("click", launchPlayer);
   $("copy").addEventListener("click", async () => {
     if (!playUrl) return;
-    if (!confirm("视频链接包含群晖 SID 登录会话，复制后请勿分享、上传或公开。确定复制到剪贴板吗？")) return;
-    try { await navigator.clipboard.writeText(playUrl); status("已复制。链接包含 SID，只用于本机播放，不要转发。", "ok"); }
-    catch { status("复制失败，可点击“用 IINA 播放”", "bad"); }
+    if (!confirm(t("copyConfirmation"))) return;
+    try { await navigator.clipboard.writeText(playUrl); status(t("copySuccess"), "ok"); }
+    catch { status(t("copyFailed"), "bad"); }
   });
   $("loginForm").addEventListener("submit", loginWithAccount);
   $("settings").addEventListener("click", () => window.open(chrome.runtime.getURL("popup.html"), "_blank"));
@@ -165,7 +166,7 @@ async function main() {
     const url = new URL(location.href);
     nasOrigin = normalizeOrigin(url.searchParams.get("nasOrigin"));
     const authorized = await chrome.runtime.sendMessage({type:"checkHandoffOrigin", nasOrigin});
-    if (!authorized?.ok) throw new Error("NAS 站点尚未获得授权。请先返回 File Station，点击扩展图标授权当前 NAS。");
+    if (!authorized?.ok) throw new Error(t("siteNotAuthorized"));
     $("site").textContent = nasOrigin;
     $("httpConsentRow").hidden = !nasOrigin.startsWith("http://");
     const input = url.searchParams.get("launchParam");
@@ -175,10 +176,10 @@ async function main() {
     if (sid) renderPlay(sid, settings.autoOpen);
     else {
       $("loginBox").hidden = false;
-      status("当前 Chrome 登录 Cookie 无法用于 File Station API；请在此取得新会话。", "bad");
+      status(t("browserCookieUnavailable"), "bad");
     }
   } catch (err) {
-    status("无法解析或连接 NAS：" + (err?.message || String(err)), "bad");
+    status(t("nasParseFailed", err?.message || String(err)), "bad");
   }
 }
 
