@@ -19,12 +19,14 @@ test('popup highlights authorized, revoked, unauthorized and unknown; two NAS re
  const nodes=new Map();
  for(const id of ['authStatus','grant','removeSite','sites','nasOrigin','status'])
   nodes.set(id,{dataset:{},textContent:'',value:'',disabled:false});
+ const locale=JSON.parse(fs.readFileSync(path.join(dir,'_locales/zh_CN/messages.json'),'utf8'));
+ const t=(key,...args)=>(locale[key]?.message||key).replace(/\{(\d+)\}/g,(_,i)=>String(args[Number(i)]??''));
  const ctx=vm.createContext({
   chrome:{storage:{local:{get:async()=>({trustedOrigins:sites})}},
           permissions:{contains:async({origins})=>granted.has(origins[0])}},
   document:{getElementById:id=>nodes.get(id)},
   normalizeOrigin,normalizeTrustedOrigins,permissionPattern,MAX_SITES:10,
-  DEFAULT_SETTINGS:{},originFromTabUrl:()=>{},getSettings:()=>{},sidStorageKey:()=>{},console
+  DEFAULT_SETTINGS:{},originFromTabUrl:()=>{},getSettings:()=>{},sidStorageKey:()=>{},t,localizePage:()=>{},console
  });
  vm.runInContext(src,ctx);
  nodes.get('nasOrigin').value=sites[0];
